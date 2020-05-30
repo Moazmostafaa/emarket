@@ -10,6 +10,7 @@
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            ContextKey = "Models.EMarketDbContext";
         }
 
         protected override void Seed(emarket.Models.EMarketDbContext context)

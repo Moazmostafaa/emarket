@@ -7,13 +7,13 @@ namespace emarket.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class CreateDb : IMigrationMetadata
+    public sealed partial class inistializeDb : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateDb));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(inistializeDb));
         
         string IMigrationMetadata.Id
         {
-            get { return "202005301859102_CreateDb"; }
+            get { return "202005302250520_inistializeDb"; }
         }
         
         string IMigrationMetadata.Source

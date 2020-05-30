@@ -127,17 +127,15 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202005301859102_CreateDb.cs" />
-    <Compile Include="Migrations\202005301859102_CreateDb.designer.cs">
-      <DependentUpon>202005301859102_CreateDb.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202005301934357_fixPrimaryKeys.cs" />
-    <Compile Include="Migrations\202005301934357_fixPrimaryKeys.designer.cs">
-      <DependentUpon>202005301934357_fixPrimaryKeys.cs</DependentUpon>
+    <Compile Include="Migrations\202005302250520_inistializeDb.cs" />
+    <Compile Include="Migrations\202005302250520_inistializeDb.designer.cs">
+      <DependentUpon>202005302250520_inistializeDb.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cart.cs" />
@@ -182,9 +180,20 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Products\Create.cshtml" />
+    <Content Include="Views\Products\Delete.cshtml" />
+    <Content Include="Views\Products\Details.cshtml" />
+    <Content Include="Views\Products\Edit.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Categories\Create.cshtml" />
+    <Content Include="Views\Categories\Delete.cshtml" />
+    <Content Include="Views\Categories\Details.cshtml" />
+    <Content Include="Views\Categories\Edit.cshtml" />
+    <Content Include="Views\Categories\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -200,11 +209,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202005301859102_CreateDb.resx">
-      <DependentUpon>202005301859102_CreateDb.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202005301934357_fixPrimaryKeys.resx">
-      <DependentUpon>202005301934357_fixPrimaryKeys.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202005302250520_inistializeDb.resx">
+      <DependentUpon>202005302250520_inistializeDb.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
