@@ -139,6 +139,10 @@
     <Compile Include="Migrations\202005302250520_inistializeDb.designer.cs">
       <DependentUpon>202005302250520_inistializeDb.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005312152050_updatedbValidation.cs" />
+    <Compile Include="Migrations\202005312152050_updatedbValidation.designer.cs">
+      <DependentUpon>202005312152050_updatedbValidation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\Category.cs" />
@@ -221,6 +225,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202005302250520_inistializeDb.resx">
       <DependentUpon>202005302250520_inistializeDb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005312152050_updatedbValidation.resx">
+      <DependentUpon>202005312152050_updatedbValidation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
