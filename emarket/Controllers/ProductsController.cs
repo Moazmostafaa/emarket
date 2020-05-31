@@ -7,7 +7,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using emarket.Filters;
 using emarket.Models;
+using emarket.ViewModels.Product;
 
 namespace emarket.Controllers
 {
@@ -18,7 +20,19 @@ namespace emarket.Controllers
         // GET: Products
         public ActionResult Index()
         {
-            return View(db.Products.ToList());
+            ProductViewModel viewModel = new ProductViewModel();
+            viewModel.Products = ProductsFilter(new ProductFilter());
+            ViewBag.Categories = db.Categories.ToList();
+
+            return PartialView(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Index(ProductViewModel viewModel)
+        {
+            viewModel.Products = ProductsFilter(viewModel.Filter);
+            ViewBag.Categories = db.Categories.ToList();
+            return PartialView(viewModel);
         }
 
         // GET: Products/Details/5
@@ -33,7 +47,12 @@ namespace emarket.Controllers
             {
                 return HttpNotFound();
             }
-            return View(product);
+            ProductViewModel viewModel = new ProductViewModel()
+            {
+                CategoryName = db.Categories.FirstOrDefault(x => x.Id == product.CategoryId).Name,
+                Product = product
+            };
+            return PartialView(viewModel);
         }
 
         // GET: Products/Create
@@ -82,6 +101,7 @@ namespace emarket.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Categories = db.Categories.ToList();
             return View(product);
         }
 
@@ -90,31 +110,25 @@ namespace emarket.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Price,Image,Description,CategoryId")] Product product)
+        public ActionResult Edit(Product product, HttpPostedFileBase upload)
         {
             if (ModelState.IsValid)
             {
+                string oldPath = Path.Combine(Server.MapPath("~/Uploads"), product.Image);
+                if (upload != null)
+                {
+                    string path = Path.Combine(Server.MapPath("~/Uploads"), upload.FileName);
+                    upload.SaveAs(path);
+                    product.Image = upload.FileName;
+                    db.Products.Add(product);
+                }
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.Categories = db.Categories.ToList();
             return View(product);
         }
-
-        // GET: Products/Delete/5
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Product product = db.Products.Find(id);
-        //    if (product == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(product);
-        //}
 
         // POST: Products/Delete/5
         [HttpPost]
@@ -123,6 +137,14 @@ namespace emarket.Controllers
         {
             Product product = db.Products.Find(id);
             db.Products.Remove(product);
+
+            var category = db.Categories.FirstOrDefault(x => x.Id == product.CategoryId);
+            category.NumberOfProducts -= 1;
+            db.Entry(category).State = EntityState.Modified;
+
+            var cartProduct = db.Carts.FirstOrDefault(x => x.ProductId == id);
+            db.Carts.Remove(cartProduct);
+
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -134,6 +156,19 @@ namespace emarket.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public List<Product> ProductsFilter(ProductFilter filter)
+        {
+            var products = db.Products.ToList();
+
+            if (filter.CategoryId > 0)
+                products = products.Where(x => x.CategoryId == filter.CategoryId).ToList();
+
+            if(!string.IsNullOrEmpty(filter.ProductName))
+                products = products.Where(x => x.Name.ToLower().Contains(filter.ProductName.ToLower())).ToList();
+
+            return products;
         }
     }
 }
