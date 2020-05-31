@@ -11,19 +11,27 @@
 
     @@media (min-width: 320px) {
         .productCard {
-            width: 95%;
-        }
-    }
-
-    @@media (min-width: 768px) and (max-width:991px) {
-        .productCard {
             width: 47.5%;
             float: left;
             margin-right: 2.5%;
         }
 
         .parentProductCard {
-            text-align:center;
+            text-align: center;
+            margin-left: 25px;
+        }
+    }
+
+    @@media (min-width: 768px) and (max-width:991px) {
+        .productCard {
+            width: 31.666%;
+            float: left;
+            margin-right: 1.66%;
+        }
+
+        .parentProductCard {
+            text-align: center;
+            margin-left: 25px;
         }
     }
 
@@ -36,6 +44,7 @@
         }
         .parentProductCard {
             text-align: center;
+            margin-left: 25px;
         }
     }
 </style>
@@ -53,7 +62,7 @@
 <hr />
 
 <div class="container-fluid">
-    @using (Html.BeginForm("Index", "Products", FormMethod.Post, new { @style = "margin-bottom:20px" }))
+    @using (Html.BeginForm("Index", "Products", FormMethod.Post, new { @style = "margin-bottom:20px;margin-left:15px" }))
     {
         <div class="row">
             <div class="form-group col-md-12" style="margin-bottom:20px">
