@@ -103,7 +103,7 @@
                         @using (Html.BeginForm("Create", "Carts", new { id = product.Id }))
                         {
                             @Html.AntiForgeryToken()
-                            <button type="submit" class="btn btn-success" onclick="javascript:return ShowMessage();">+ Add To Cart</button>
+                            <button type="submit" class="btn btn-success" onclick="javascript:return ShowAddingMessage();">+ Add To Cart</button>
                         }
                     </div>
                 </div>
@@ -122,7 +122,7 @@
         $('#myModal').modal('show');
     }
 
-    function ShowMessage() {
+    function ShowAddingMessage() {
         var result = confirm("Do you want to add this product to cart ?");
         if (result) {
             return true;

@@ -149,15 +149,6 @@ namespace emarket.Controllers
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
         public List<Product> ProductsFilter(ProductFilter filter)
         {
             var products = db.Products.ToList();
